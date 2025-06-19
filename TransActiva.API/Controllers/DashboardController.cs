@@ -70,4 +70,23 @@ public class DashboardController : ControllerBase
         var result = await _mediator.Send(new GetPagosPorEstadoQuery());
         return Ok(result);
     }
+    [HttpGet("pagos/por-dia")]
+    public async Task<IActionResult> GetPagosPorDia()
+    {
+        var result = await _mediator.Send(new GetPagosPorDiaQuery());
+        return Ok(result);
+    }
+    [HttpGet("pagos-por-proveedor")]
+    public async Task<ActionResult<List<PagosPorProveedorDto>>> GetPagosPorProveedor()
+    {
+        var resultado = await _mediator.Send(new GetPagosPorProveedorQuery());
+        return Ok(resultado);
+    }
+    [HttpGet("tiempo-entrega")]
+    public async Task<IActionResult> GetTiempoEntrega()
+    {
+        var resultado = await _mediator.Send(new GetTiempoEntregaQuery());
+        return Ok(resultado);
+    }
+    
 }
