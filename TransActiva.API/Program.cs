@@ -50,7 +50,7 @@ builder.Services.AddScoped<IUserTypeRepository, UserTypeRepository>();
 // 🧱 Unit of Work
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
+//"DefaultConnection": "server=127.0.0.1;port=3306;database=transactiva;user=transactiva_user;password=72882624V.;"
 // 🔐 CORS (opcional si usas frontend separado)
 builder.Services.AddCors(options =>
 {
@@ -63,18 +63,6 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
-// ✔️ Verificación de conexión a la base de datos
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<TransactivaDbContext>();
-    bool canConnect = db.Database.CanConnect();
-
-    if (canConnect)
-        Console.WriteLine("✅ ¡Conectado a Railway exitosamente!");
-    else
-        Console.WriteLine("❌ Error al conectar con Railway.");
-}
 
 app.UseSwagger();
 app.UseSwaggerUI();
