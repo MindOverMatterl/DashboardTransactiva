@@ -7,19 +7,19 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copiar toda la solución
+# Copiar todo el proyecto
 COPY . .
 
-# Restaurar dependencias desde el proyecto principal
+# Restaurar dependencias
 RUN dotnet restore "TransActiva.API/TransActiva.API.csproj"
 
-# Publicar el proyecto principal (API)
-RUN dotnet publish "TransActiva.API/TransActiva.API.csproj" -c Release -o /app/publish
+# Publicar en una carpeta coherente
+RUN dotnet publish "TransActiva.API/TransActiva.API.csproj" -c Release -o /src/publish
 
-# Etapa final: imagen liviana para producción
+# Etapa final: imagen liviana
 FROM base AS final
 WORKDIR /app
-COPY --from=build /app/publish .
+COPY --from=build /src/publish .
 
 # Punto de entrada
 ENTRYPOINT ["dotnet", "TransActiva.API.dll"]
