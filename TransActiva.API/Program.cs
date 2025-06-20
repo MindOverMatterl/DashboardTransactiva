@@ -30,7 +30,7 @@ builder.Services.AddDbContext<TransactivaDbContext>(options =>
                 errorNumbersToAdd: null
             );
         }));
-
+// Este comentario es para forzar el redeploy
 // 🧠 MediatR (solo Application)
 builder.Services.AddMediatR(cfg =>
 {
