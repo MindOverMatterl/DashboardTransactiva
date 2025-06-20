@@ -78,4 +78,13 @@ app.UseMiddleware<ExceptionHandlingMiddleware>(); // ← Aquí lo insertas
 app.UseAuthorization();
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<TransactivaDbContext>();
+    bool canConnect = db.Database.CanConnect();
+    Console.WriteLine(canConnect
+        ? "✅ ¡Conectado a Railway exitosamente!"
+        : "❌ Error al conectar con Railway.");
+}
+
 app.Run();
